@@ -1,10 +1,84 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Socket.IO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Socket.IO chat</title>
+    <link rel="stylesheet" href="styles.min.css" />
+    <script src="socket.io/socket.io.js"></script>
   </head>
+
   <body>
-    
+    <div class="root">
+      <div class="chatContainer">
+        <span class="title">Chat</span>
+        <div class="username">
+          <span>Username: </span>
+          <input
+            class="input"
+            type="text"
+            name="username"
+            id="username"
+            placeholder="Enter your username"
+          />
+        </div>
+        <div class="messagesList" id="messagesList"></div>
+        <div class="actions">
+          <span
+            class="textarea"
+            name="messageInput"
+            id="messageInput"
+            role="textbox"
+            contenteditable
+          ></span>
+          <button class="sendBtn" id="sendBtn">Send</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      const username = document.querySelector('#username');
+      const messagesList = document.querySelector('#messagesList');
+      const messageInput = document.querySelector('#messageInput');
+      const sendBtn = document.querySelector('#sendBtn');
+
+      username.addEventListener('input', (event) => {
+        event.preventDefault();
+        sendBtn.disabled =
+          !username.value.trim() || !messageInput.innerHTML.trim();
+      });
+
+      messageInput.addEventListener('input', (event) => {
+        event.preventDefault();
+        sendBtn.disabled =
+          !username.value.trim() || !messageInput.innerHTML.trim();
+      });
+
+      sendBtn.disabled =
+        !username.value.trim() || !messageInput.innerHTML.trim();
+
+      const socket = io();
+
+      sendBtn.addEventListener('click', (event) => {
+        event.preventDefault();
+        socket.emit(
+          'sendMessage',
+          { from: username.value, text: messageInput.innerHTML.trim() },
+          () => {}
+        );
+        sendBtn.disabled = true;
+        messageInput.innerHTML = '';
+        messageInput.focus();
+      });
+
+      socket.on('receiveMessage', (message) => {
+        console.log('receiveMessage -- client side', message);
+        const messageItem = document.createElement('div');
+        messageItem.innerHTML = `${
+          message.from === username.value ? 'Me' : message.from
+        }: ${message.text}`;
+        messagesList.appendChild(messageItem);
+        messagesList.scrollTop = messagesList.scrollHeight;
+      });
+    </script>
   </body>
 </html>

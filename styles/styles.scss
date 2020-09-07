@@ -1,0 +1,93 @@
+html {
+  font-size: 75%; /* 12px */
+
+  body {
+    font-size: 1rem; /* 12px */
+  }
+}
+
+.input,
+.textarea {
+  border: 1px solid #ccc;
+  font-family: inherit;
+  font-size: inherit;
+  padding: 1px 6px;
+}
+
+.input {
+  width: 100%;
+}
+
+.textarea {
+  display: block;
+  line-height: 20px;
+  min-height: 40px;
+  max-height: 80px;
+  overflow: auto;
+  resize: none;
+  width: 100%;
+}
+
+.textarea[contenteditable]:empty::before {
+  content: 'Enter message';
+  color: gray;
+}
+
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 95vh;
+
+  .chatContainer {
+    -webkit-box-shadow: 7px 7px 5px 0px rgba(94, 94, 94, 1);
+    -moz-box-shadow: 7px 7px 5px 0px rgba(94, 94, 94, 1);
+    box-shadow: 7px 7px 5px 0px rgba(94, 94, 94, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    height: 80vh;
+    padding: 15px 10px;
+    width: 40%;
+    min-width: 450px;
+
+    .title {
+      font-size: 2rem;
+      font-weight: bold;
+      padding: 10px 0;
+    }
+
+    .username {
+      display: flex;
+      align-items: center;
+      width: 100%;
+
+      span {
+        font-size: 1.5rem;
+        padding-right: 6px;
+      }
+    }
+
+    .messagesList {
+      border: 1px solid grey;
+      height: 100%;
+      overflow: auto;
+      margin: 10px 0;
+      width: 100%;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+
+      .sendBtn {
+        align-self: flex-end;
+        height: min-content;
+        width: max-content;
+      }
+    }
+  }
+}

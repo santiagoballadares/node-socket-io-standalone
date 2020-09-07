@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --inspect -r dotenv/config ./src/index.js",
-    "start": "node -r dotenv/config ./src/index.js"
+    "compile-styles": "node-sass --output-style expanded styles/styles.scss public/styles.css",
+    "css-minify": "cleancss --level 1 --format breaksWith=lf --output public/styles.min.css public/styles.css",
+    "process-styles": "npm run compile-styles && npm run css-minify",
+    "dev": "nodemon --inspect -r dotenv/config index.js",
+    "start": "node -r dotenv/config index.js"
   },
   "keywords": [],
   "author": "S.B.",
@@ -16,12 +18,14 @@
     "socket.io": "^2.3.0"
   },
   "devDependencies": {
+    "clean-css-cli": "^4.3.0",
     "dotenv": "^8.2.0",
     "eslint": "^7.8.1",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-prettier": "^3.1.4",
+    "node-sass": "^4.14.1",
     "nodemon": "^2.0.4",
     "prettier": "^2.1.1"
   }
