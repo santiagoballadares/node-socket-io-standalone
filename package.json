@@ -1,5 +1,5 @@
 {
-  "name": "node-socket-io",
+  "name": "node-socket-io-standalone",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
